@@ -132,7 +132,7 @@ describe('Cart component', () => {
   });
 
   //Test de método privado directamente (no se suele hacer, con lo anterior basta)
-  it('_clearListCarBook works correctly', () => {
+  it('clearListCarBook works correctly', () => {
     const spy = jest
       .spyOn(service, 'removeBooksFromCart')
       .mockImplementation(() => null);

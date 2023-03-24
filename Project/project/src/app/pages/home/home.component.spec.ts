@@ -1,6 +1,6 @@
 import { HomeComponent } from './home.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BookService } from '../../services/book.service';
 import { Book } from 'src/app/models/book.model';
@@ -34,14 +34,23 @@ const bookServiceMock = {
   getBooks: () => of(listBook),
 };
 
-describe('Home Component', () => {
+@Pipe({name: "reduceText"})
+class ReducePipeMock implements PipeTransform{ //Mock del Pipe
+  transform(): string {
+    return "";
+  }
+}
+
+//fdescribe hace que el test pase como exitoso siempre
+//xdescribe hace que todos los test de este bloque se salten
+describe('Home Component', () => { 
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      declarations: [HomeComponent],
+      declarations: [HomeComponent, ReducePipeMock],
       providers: [
         //BookService,
         {
@@ -60,7 +69,8 @@ describe('Home Component', () => {
     fixture.detectChanges(); //Para que se ejecuten los hooks
   });
 
-  it('should create', () => {
+  //xit hace que un test no se ejecute
+  it('should create', () => { 
     expect(component).toBeTruthy();
   });
 
